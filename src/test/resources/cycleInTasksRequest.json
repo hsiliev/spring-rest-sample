@@ -1,0 +1,32 @@
+{
+  "tasks": [
+    {
+      "name": "task-1",
+      "command": "echo '1'",
+      "requires": [
+        "task-2"
+      ]
+    },
+    {
+      "name": "task-2",
+      "command": "echo '2'",
+      "requires": [
+        "task-4"
+      ]
+    },
+    {
+      "name": "task-3",
+      "command": "echo '3'",
+      "requires": [
+        "task-2"
+      ]
+    },
+    {
+      "name": "task-4",
+      "command": "echo '4'",
+      "requires": [
+        "task-3"
+      ]
+    }
+  ]
+}

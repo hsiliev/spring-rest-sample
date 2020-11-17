@@ -10,10 +10,6 @@ public class Job {
     return tasks;
   }
 
-  public void setTasks(List<Task> tasks) {
-    this.tasks = tasks;
-  }
-
   @Override
   public String toString() {
     return "Job{" +

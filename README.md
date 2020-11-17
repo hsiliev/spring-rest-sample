@@ -10,6 +10,9 @@ cd tasks-service
 # Start the Spring Boot app
 ./gradlew bootRun
 
-# In a new tab/shell run
-curl -d @src/test/resources/request.json -H "Content-Type: application/json" localhost:8080/jobs | jq .
+# Start a new tab/shell and request JSON representation using:
+curl -d @src/test/resources/correctRequest.json -H "Content-Type: application/json" localhost:8080/jobs | jq .
+
+# or shell script with: 
+curl -d @src/test/resources/correctRequest.json -H "Content-Type: application/json" -H "Accept: application/x-shellscript" localhost:8080/jobs
 ```
