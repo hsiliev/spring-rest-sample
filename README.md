@@ -11,5 +11,5 @@ cd tasks-service
 ./gradlew bootRun
 
 # In a new tab/shell run
-curl -d @src/test/resources/request.json -H "Content-Type: application/json" localhost:8080/jobs
+curl -d @src/test/resources/request.json -H "Content-Type: application/json" localhost:8080/jobs | jq .
 ```
