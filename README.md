@@ -15,7 +15,7 @@ cd tasks-service
 You can then do manual testing:
 ```bash
 # Start a new tab/shell and request JSON representation using:
-curl -d @src/test/resources/correctRequest.json -H "Content-Type: application/json" localhost:8080/jobs | jq .
+curl -d @src/test/resources/correctRequest.json -H "Content-Type: application/json" localhost:8080/jobs
 
 # or shell script with: 
 curl -d @src/test/resources/correctRequest.json -H "Content-Type: application/json" -H "Accept: text/plain" localhost:8080/jobs
