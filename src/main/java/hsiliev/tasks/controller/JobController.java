@@ -2,7 +2,7 @@ package hsiliev.tasks.controller;
 
 import hsiliev.tasks.model.Job;
 import hsiliev.tasks.model.Task;
-import hsiliev.tasks.resolver.DependenciesResolver;
+import hsiliev.tasks.dependencies.Dependencies;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,12 +20,7 @@ public class JobController {
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Task> createJson(@RequestBody Job job) {
-    return getSortedTasks(job);
-  }
-
-  private List<Task> getSortedTasks(Job job) {
-    DependenciesResolver dependenciesResolver = new DependenciesResolver(job);
-    return dependenciesResolver.sort();
+    return Dependencies.build(job).order();
   }
 
   @PostMapping(
@@ -33,7 +28,7 @@ public class JobController {
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.TEXT_PLAIN_VALUE)
   public String createShellScript(@RequestBody Job job) {
-    List<Task> sortedTasks = getSortedTasks(job);
+    List<Task> sortedTasks = Dependencies.build(job).order();
     return buildScript(sortedTasks);
   }
 

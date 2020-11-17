@@ -1,4 +1,4 @@
-package hsiliev.tasks.resolver;
+package hsiliev.tasks.dependencies;
 
 public class DependencyCycleException extends RuntimeException {
 

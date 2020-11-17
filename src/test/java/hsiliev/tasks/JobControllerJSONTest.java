@@ -1,6 +1,6 @@
 package hsiliev.tasks;
 
-import hsiliev.tasks.resolver.DependencyCycleException;
+import hsiliev.tasks.dependencies.DependencyCycleException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

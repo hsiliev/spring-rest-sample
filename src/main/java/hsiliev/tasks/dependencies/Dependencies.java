@@ -1,4 +1,4 @@
-package hsiliev.tasks.resolver;
+package hsiliev.tasks.dependencies;
 
 import hsiliev.tasks.model.Job;
 import hsiliev.tasks.model.Task;
@@ -15,24 +15,26 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class DependenciesResolver {
+public class Dependencies {
 
-  private final Graph<Task, DefaultEdge> graph = new SimpleDirectedGraph<>(DefaultEdge.class);
+  public static Resolver build(Job job) {
+    Graph<Task, DefaultEdge> graph = new SimpleDirectedGraph<>(DefaultEdge.class);
 
-  public DependenciesResolver(Job job) {
-    createVertices(job);
-    addEdges(job);
+    createVertices(graph, job);
+    addEdges(graph, job);
 
-    checkForCycles();
+    checkForCycles(graph);
+
+    return new Resolver(graph);
   }
 
-  private void createVertices(Job job) {
+  private static void createVertices(Graph<Task, DefaultEdge> graph, Job job) {
     for (Task task : job.getTasks()) {
       graph.addVertex(task);
     }
   }
 
-  private void addEdges(Job job) {
+  private static void addEdges(Graph<Task, DefaultEdge> graph, Job job) {
     Map<String, Task> nameToTaskMapping = job.getTasks().stream().collect(Collectors.toMap(Task::getName, task -> task));
 
     for (Task task : job.getTasks()) {
@@ -48,7 +50,7 @@ public class DependenciesResolver {
     }
   }
 
-  private void checkForCycles() {
+  private static void checkForCycles(Graph<Task, DefaultEdge> graph) {
     CycleDetector<Task, DefaultEdge> cycleDetector = new CycleDetector<>(graph);
     if (cycleDetector.detectCycles()) {
       Set<Task> cycleVertices = cycleDetector.findCycles();
@@ -56,12 +58,20 @@ public class DependenciesResolver {
     }
   }
 
-  public List<Task> sort() {
-    TopologicalOrderIterator<Task, DefaultEdge> orderIterator = new TopologicalOrderIterator<>(graph);
+  public static class Resolver {
+    private final Graph<Task, DefaultEdge> graph;
 
-    List<Task> result = new ArrayList<>();
-    orderIterator.forEachRemaining(result::add);
+    public Resolver(Graph<Task, DefaultEdge> graph) {
+      this.graph = graph;
+    }
 
-    return result;
+    public List<Task> order() {
+      TopologicalOrderIterator<Task, DefaultEdge> orderIterator = new TopologicalOrderIterator<>(graph);
+
+      List<Task> result = new ArrayList<>();
+      orderIterator.forEachRemaining(result::add);
+
+      return result;
+    }
   }
 }
