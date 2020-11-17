@@ -34,8 +34,8 @@ public class JobController {
 
   private String buildScript(List<Task> sortedTasks) {
     StringBuilder builder = new StringBuilder(SCRIPT_HEADER);
-    for (Task sortedTask : sortedTasks) {
-      builder.append(sortedTask.getCommand()).append("\n");
+    for (Task task : sortedTasks) {
+      builder.append(task.getCommand()).append("\n");
     }
     return builder.toString();
   }
