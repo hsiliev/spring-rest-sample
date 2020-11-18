@@ -27,6 +27,10 @@ public class JobController {
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Task> createJson(@RequestBody Job job) {
+    return sortTasks(job);
+  }
+
+  private List<Task> sortTasks(Job job) {
     return dependencies.build(job).order();
   }
 
@@ -35,7 +39,7 @@ public class JobController {
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.TEXT_PLAIN_VALUE)
   public String createShellScript(@RequestBody Job job) {
-    List<Task> sortedTasks = dependencies.build(job).order();
+    List<Task> sortedTasks = sortTasks(job);
     return buildScript(sortedTasks);
   }
 
