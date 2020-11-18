@@ -7,6 +7,7 @@ import org.jgrapht.alg.cycle.CycleDetector;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.jgrapht.traverse.TopologicalOrderIterator;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +15,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Dependencies {
+@Service
+public class DependenciesService {
 
-  public static Resolver build(Job job) {
+  public Resolver build(Job job) {
     Graph<Task, DefaultEdge> graph = new SimpleDirectedGraph<>(DefaultEdge.class);
 
     createVertices(graph, job);
@@ -27,11 +29,11 @@ public class Dependencies {
     return new Resolver(graph);
   }
 
-  private static void createVertices(Graph<Task, DefaultEdge> graph, Job job) {
+  private void createVertices(Graph<Task, DefaultEdge> graph, Job job) {
     job.getTasks().forEach(graph::addVertex);
   }
 
-  private static void addEdges(Graph<Task, DefaultEdge> graph, Job job) {
+  private void addEdges(Graph<Task, DefaultEdge> graph, Job job) {
     Map<String, Task> nameToTaskMapping = job.getTasks().stream().collect(Collectors.toMap(Task::getName, task -> task));
 
     for (Task task : job.getTasks()) {
@@ -47,7 +49,7 @@ public class Dependencies {
     }
   }
 
-  private static void checkForCycles(Graph<Task, DefaultEdge> graph) {
+  private void checkForCycles(Graph<Task, DefaultEdge> graph) {
     CycleDetector<Task, DefaultEdge> cycleDetector = new CycleDetector<>(graph);
     if (cycleDetector.detectCycles()) {
       Set<Task> cycleVertices = cycleDetector.findCycles();
