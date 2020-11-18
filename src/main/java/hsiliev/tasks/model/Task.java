@@ -11,7 +11,8 @@ public class Task {
 
   private String command;
 
-  private List<String> requires;
+  @JsonProperty("requires")
+  private List<String> dependentTaskNames;
 
   public String getName() {
     return name;
@@ -22,13 +23,13 @@ public class Task {
   }
 
   @JsonIgnore
-  public List<String> getRequires() {
-    return requires;
+  public List<String> getDependentTaskNames() {
+    return dependentTaskNames;
   }
 
   @JsonProperty
-  public void setRequires(List<String> requires) {
-    this.requires = requires;
+  public void setDependentTaskNames(List<String> dependentTaskNames) {
+    this.dependentTaskNames = dependentTaskNames;
   }
 
   @Override
@@ -36,7 +37,7 @@ public class Task {
     return "Task{" +
       "name='" + name + '\'' +
       ", command='" + command + '\'' +
-      ", requires=" + requires +
+      ", dependentTaskNames=" + dependentTaskNames +
       '}';
   }
 }

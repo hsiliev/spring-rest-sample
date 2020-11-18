@@ -1,14 +1,15 @@
 package hsiliev.tasks.controller;
 
+import hsiliev.tasks.dependencies.Dependencies;
 import hsiliev.tasks.model.Job;
 import hsiliev.tasks.model.Task;
-import hsiliev.tasks.dependencies.Dependencies;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class JobController {
@@ -33,11 +34,7 @@ public class JobController {
   }
 
   private String buildScript(List<Task> sortedTasks) {
-    StringBuilder builder = new StringBuilder(SCRIPT_HEADER);
-    for (Task task : sortedTasks) {
-      builder.append(task.getCommand()).append("\n");
-    }
-    return builder.toString();
+    return sortedTasks.stream().map(Task::getCommand).collect(Collectors.joining("\n", SCRIPT_HEADER, "\n"));
   }
 
 }
