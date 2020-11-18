@@ -49,6 +49,7 @@ A list of improvements (in no particular order):
    * restart script / daemon
    * rate limiting
    * security
+      * disable dev endpoints (actuators, JMX) 
       * request auth (authentication & authorization)
       * directory traversal checks
       * limit size of request / body
@@ -56,6 +57,7 @@ A list of improvements (in no particular order):
    * load & performance test
    * run multiple instances of the app
    * weighted loadbalancer to spread load across multiple instances
+   * fine-tune JVM params (GC, memory, class and thread space, etc.)
    * switch to Netty / RxNetty for lower latency
    * use HTTP/2
    * response metrics
