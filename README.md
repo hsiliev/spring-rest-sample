@@ -1,12 +1,10 @@
 # tasks-service
-Tasks service
+Spring Boot application with `/jobs` endpoint, that can return either JSON or script representation of the bash commands.
 
 
 ![Java CI with Gradle](https://github.com/hsiliev/tasks-service/workflows/Java%20CI%20with%20Gradle/badge.svg)
 
 ### Application 
-
-The application is Spring Boot based with one endpoint `/jobs` that can return either JSON or script representation of the tasks.
 
 Tasks order is determined with topological sort/traversal of directed acyclic graph. 
 
