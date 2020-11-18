@@ -50,11 +50,11 @@ A list of improvements (in no particular order):
       * disable dev endpoints (actuators, JMX) 
       * request auth (authentication & authorization)
       * directory traversal checks
-      * limit size of request / body
+      * limit size of request (body)
 * scalability
    * load & performance test
    * run multiple instances of the app
-   * weighted loadbalancer to spread load across multiple instances
+   * weighted loadbalancing to spread load across multiple instances
    * fine-tune JVM params (GC, memory, class and thread space, etc.)
    * switch to Netty / RxNetty for lower latency
    * use HTTP/2
@@ -73,6 +73,4 @@ A list of improvements (in no particular order):
    * security checks (dependencies, vulnerabilities)
    * OSS license checks
    * releases and support branches
-   
- 
-  
+   * API documentation
