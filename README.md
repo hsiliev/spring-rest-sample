@@ -1,4 +1,4 @@
-# tasks-service
+# Spring REST sample (Task service)
 Spring Boot application with `/jobs` endpoint, that can return either JSON or script representation of the bash commands.
 
 
